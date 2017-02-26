@@ -34,7 +34,7 @@ items:
           deploymentconfig: flask-dummy
       spec:
         containers:
-        - image: 172.30.135.22:5000/myproject/flask-demo
+        - image: REGIP:5000/myproject/flask-demo
           name: flask-dummy
           ports:
           - containerPort: 5000

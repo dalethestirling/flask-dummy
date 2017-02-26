@@ -5,6 +5,9 @@ REGISTRY_IP=$(oc get svc docker-registry -n default -o template --template={{.sp
 
 echo "Have registry IP: ${REGISTRY_IP}"
 
+sed -i -e "s/REGIP/${REGISTRY_IP}/g" list.yaml
+
+
 oc login -u developer
 OPENSHIFT_TOKEN=$(oc whoami -t)
 
