@@ -10,6 +10,6 @@ OPENSHIFT_TOKEN=$(oc whoami -t)
 
 echo "Have token: ${OPENSHIFT_TOKEN}"
 
-docker login -u developer -p ${OPENSHIFT_TOKEN} ${REGISTRY_IP}:5000
+docker login -D -u developer -p ${OPENSHIFT_TOKEN} ${REGISTRY_IP}:5000
 docker tag flask-demo:latest ${REGISTRY_IP}:5000/myproject/flask-demo
 docker push ${REGISTRY_IP}:5000/myproject/flask-demo:latest
