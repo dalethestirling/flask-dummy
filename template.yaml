@@ -1,0 +1,90 @@
+apiVersion: v1
+kind: Template
+labels:
+  template: flask-dummy
+  group: testing
+metadata:
+  annotations:
+    description: dummy Flask web app
+    iconClass: icon-bolt
+    tags: flask-dummy
+  name: flask-dummy
+objects:
+- apiVersion: v1
+  kind: DeploymentConfig
+  metadata:
+    labels:
+      app: flask-dummy
+    name: flask-dummy
+  spec:
+    replicas: 1
+    selector:
+      app: flask-dummy
+      deploymentconfig: flask-dummy
+    strategy:
+      type: Rolling
+      rollingParams:
+        updatePeriodSeconds: 1
+        intervalSeconds: 1
+        timeoutSeconds: 600
+        maxUnavailable: 25%
+        maxSurge: 25%
+    template:
+      metadata:
+        labels:
+          app: flask-dummy
+          deploymentconfig: flask-dummy
+      spec:
+        containers:
+        - name: flask-dummy
+          image: 172.30.135.22:5000/myproject/flask-demo
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 5000
+            protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /hello
+              port: 5000
+            initialDelaySeconds: 60
+            periodSeconds: 30
+            failureThreshold: 3
+            timeoutSeconds: 3
+          readinessProbe:
+            httpGet:
+              path: /hello
+              port: 5000
+            initialDelaySeconds: 60
+            periodSeconds: 30
+            successThreshold: 1
+            failureThreshold: 3
+            timeoutSeconds: 3
+        restartPolicy: Always
+        terminationGracePeriodSeconds: 30
+    triggers:
+    - type: ConfigChange
+    - type: ImageChange
+      imageChangeParams:
+        automatic: true
+        containerNames:
+          - flask-demo
+        from:
+          kind: ImageStreamTag
+          name: flask-demo:latest
+- apiVersion: v1
+  kind: Service
+  metadata:
+     annotations:
+       description: Mule Health API service
+     labels:
+       app: flask-dummy
+     name: flask-dummy
+  spec:
+     ports:
+     - name: 5000-tcp
+       port: 5000
+       protocol: TCP
+       targetPort: 5000
+     selector:
+       deploymentconfig: flask-dummy
+     sessionAffinity: None

@@ -1,0 +1,21 @@
+kind: "DeploymentConfig"
+apiVersion: "v1"
+metadata:
+  name: "flask-dummy"
+spec:
+  template: 
+    metadata:
+      labels:
+        name: "flask-dummy"
+    spec:
+      containers:
+        - name: "flask-dummy"
+          image: "flask-demo"
+          ports:
+            - containerPort: 5000
+              protocol: "TCP"
+  replicas: 1 
+  triggers:
+    - type: "ConfigChange" 
+  strategy: 
+    type: "Rolling"
