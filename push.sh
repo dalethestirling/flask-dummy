@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /bin/bash -x
 
 oc login -u system:admin
 REGISTRY_IP=$(oc get svc docker-registry -n default -o template --template={{.spec.clusterIP}})	
