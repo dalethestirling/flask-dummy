@@ -44,10 +44,10 @@ items:
     - imageChangeParams:
         automatic: true
         containerNames:
-        - flask-dummy
+        - flask-demo
         from:
           kind: ImageStreamTag
-          name: flask-dummy:latest
+          name: flask-demo:latest
       type: ImageChange
 - apiVersion: v1
   kind: ImageStream
