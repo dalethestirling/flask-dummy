@@ -41,14 +41,6 @@ items:
             protocol: TCP
     triggers:
     - type: ConfigChange
-    - imageChangeParams:
-        automatic: true
-        containerNames:
-        - flask-demo
-        from:
-          kind: ImageStreamTag
-          name: flask-demo:latest
-      type: ImageChange
 - apiVersion: v1
   kind: ImageStream
   metadata:
