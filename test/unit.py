@@ -5,7 +5,7 @@ import urllib2
 import sys
 
 class TestStringMethods(unittest.TestCase):
-    def test_upper(self):
+    def test_api(self):
         result = urllib2.urlopen('http://%s/hello' % (testing_endpoint)).read()        
         self.assertEqual(result, 'world')
 
