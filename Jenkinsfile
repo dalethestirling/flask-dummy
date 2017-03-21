@@ -12,7 +12,7 @@ node {
     }
     stage ('Create Openshit Deploynemt and deploy') {
         sh 'oc create -f list.yaml'
-        sh ' sleep 60'
+        sh ' sleep 120'
     }
     stage ('TEST') {
         def TEST_URL = sh returnStdout: true, script: 'oc get route flask-dummy -o template  --template={{.spec.host}}'
