@@ -1,4 +1,8 @@
 node {
+    stage ('Get Code') {
+        sh 'whoami'
+        git 'https://github.com/dalethestirling/flask-dummy.git'
+    }
     stage ('Docker Build') {
         sh 'docker build .'
     }
