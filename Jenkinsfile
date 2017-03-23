@@ -8,7 +8,7 @@ node {
         sh 'sleep 10'
     }
     stage ('Deploy container to Openshift') {
-        sh './push.sh'
+        sh './util/push.sh'
     }
     stage ('Create Openshit Deploynemt and deploy') {
         sh 'oc create -f list.yaml'
